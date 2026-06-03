@@ -1,0 +1,27 @@
+---
+title: "GSE130435"
+output: html_document
+---
+
+## GSE130435 -- only a processed count matrix
+
+```{r}
+library(Seurat)
+library(ggplot2)
+library(org.Hs.eg.db)
+```
+
+```{r}
+GSE130435 <- read.delim("~/Downloads/Alpha_Beta_Paper/GSE130435_RAW/GSE130435_1904_processed_data_raw_counts_juliavallve.txt")
+
+# Map Ensembl Gene IDs to Gene Names
+gene_names <- mapIds(org.Hs.eg.db, keys = GSE130435$ID, column = "SYMBOL", keytype = "ENSEMBL")
+
+# Add the gene names to the dataframe
+GSE130435$gene_name <- gene_names
+```
+
+### Save object
+```{r}
+write.csv(GSE130435, file = "~/Downloads/Alpha_Beta_Paper/GSE130435_RAW/cleaned_GSE130435_EuE_macrophages.csv")
+```

@@ -1,0 +1,1323 @@
+---
+title: "GSE179640"
+output: html_document
+---
+
+## GSE179640
+```{r}
+library(Seurat)
+library(ggplot2)
+```
+
+```{r}
+Control1 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102532_C01_Ctrl_filtered_feature_bc_matrix.h5")
+
+Control2 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102533_C02_Ctrl_filtered_feature_bc_matrix.h5")
+
+Control3 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102534_C03_Ctrl_filtered_feature_bc_matrix.h5")
+
+E01_EuE <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102537_E01_EuE_filtered_feature_bc_matrix.h5")
+
+E02_EuE <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102540_E02_EuE_filtered_feature_bc_matrix.h5")
+
+E03_EuE <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102543_E03_EuE_filtered_feature_bc_matrix.h5")
+
+E04_EuE <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102546_E04_EuE_filtered_feature_bc_matrix.h5")
+
+E05_EuE <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102549_E05_EuE_filtered_feature_bc_matrix.h5")
+
+E06_EuE <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102551_E06_EuE_filtered_feature_bc_matrix.h5")
+
+E07_EuE <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102554_E07_EuE_filtered_feature_bc_matrix.h5")
+
+E08_EuE <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102555_E08_EuE_filtered_feature_bc_matrix.h5")
+
+E09_EuE <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102560_E09_EuE_filtered_feature_bc_matrix.h5")
+
+E06_EcP <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102550_E06_EcP_filtered_feature_bc_matrix.h5")
+
+E07_EcP <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102553_E07_EcP_filtered_feature_bc_matrix.h5")
+
+E01_EcP <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595248_E01_EcP_filtered_feature_bc_matrix.h5")
+
+E02_EcP <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595250_E02_EcP_filtered_feature_bc_matrix.h5")
+
+E03_EcP <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595252_E03_EcP_filtered_feature_bc_matrix.h5")
+
+E04_EcP <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595254_E04_EcP_filtered_feature_bc_matrix.h5")
+
+E05_EcP <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595256_E05_EcP_filtered_feature_bc_matrix.h5")
+
+E09_EcP <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595258_E09_EcP_filtered_feature_bc_matrix.h5")
+
+E07_EcO <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102552_E07_EcO_filtered_feature_bc_matrix.h5")
+
+E09_EcO <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102556_E09_EcO_filtered_feature_bc_matrix.h5")
+
+E11_EcO <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6102562_E11_EcO_filtered_feature_bc_matrix.h5")
+
+E10_EcO <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595261_E10_EcO_filtered_feature_bc_matrix.h5")
+
+E01_EcPA <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595249_E01_EcPA_filtered_feature_bc_matrix.h5")
+
+E02_EcPA <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595251_E02_EcPA_filtered_feature_bc_matrix.h5")
+
+E03_EcPA <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595253_E03_EcPA_filtered_feature_bc_matrix.h5")
+
+E04_EcPA <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595255_E04_EcPA_filtered_feature_bc_matrix.h5")
+
+E05_EcPA <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595257_E05_EcPA_filtered_feature_bc_matrix.h5")
+
+E09_EcPA <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595259_E09_EcPA_filtered_feature_bc_matrix.h5")
+
+E09_EcPA2 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Pre Processed/Filtered Data/GSM6595260_E09_EcPA2_filtered_feature_bc_matrix.h5")
+
+Control1 <- CreateSeuratObject(counts = Control1, project = "Control1", min.cells = 3, min.features = 200)
+Control2 <- CreateSeuratObject(counts = Control2, project= "Control2", min.cells = 3, min.features = 200)
+Control3 <- CreateSeuratObject(counts = Control3, project = "Control3", min.cells = 3, min.features = 200)
+
+E01_EuE <- CreateSeuratObject(counts = E01_EuE, project = "E01_EuE", min.cells = 3, min.features = 200)
+E02_EuE <- CreateSeuratObject(counts = E02_EuE, project = "E02_EuE", min.cells = 3, min.features = 200)
+E03_EuE <- CreateSeuratObject(counts = E03_EuE, project = "E03_EuE", min.cells = 3, min.features = 200)
+E04_EuE <- CreateSeuratObject(counts = E04_EuE, project = "E04_EuE", min.cells = 3, min.features = 200)
+E05_EuE <- CreateSeuratObject(counts = E05_EuE, project = "E05_EuE", min.cells = 3, min.features = 200)
+E06_EuE <- CreateSeuratObject(counts = E06_EuE, project = "E06_EuE", min.cells = 3, min.features = 200)
+E07_EuE <- CreateSeuratObject(counts = E07_EuE, project = "E07_EuE", min.cells = 3, min.features = 200)
+E08_EuE <- CreateSeuratObject(counts = E08_EuE, project = "E08_EuE", min.cells = 3, min.features = 200)
+E09_EuE <- CreateSeuratObject(counts = E09_EuE, project = "E09_EuE", min.cells = 3, min.features = 200)
+
+E01_EcP <- CreateSeuratObject(counts = E01_EcP, project = "E01_EcP", min.cells = 3, min.features = 200)
+E02_EcP <- CreateSeuratObject(counts = E02_EcP, project = "E02_EcP", min.cells = 3, min.features = 200)
+E03_EcP <- CreateSeuratObject(counts = E03_EcP, project = "E03_EcP", min.cells = 3, min.features = 200)
+E04_EcP <- CreateSeuratObject(counts = E04_EcP, project = "E04_EcP", min.cells = 3, min.features = 200)
+E05_EcP <- CreateSeuratObject(counts = E05_EcP, project = "E05_EcP", min.cells = 3, min.features = 200)
+E06_EcP <- CreateSeuratObject(counts = E06_EcP, project = "E06_EcP", min.cells = 3, min.features = 200)
+E07_EcP <- CreateSeuratObject(counts = E07_EcP, project = "E07_EcP", min.cells = 3, min.features = 200)
+E09_EcP <- CreateSeuratObject(counts = E09_EcP, project = "E09_EcP", min.cells = 3, min.features = 200)
+
+E07_EcO <- CreateSeuratObject(counts = E07_EcO, project = "E07_EcO", min.cells = 3, min.features = 200)
+E09_EcO <- CreateSeuratObject(counts = E09_EcO, project = "E09_EcO", min.cells = 3, min.features = 200)
+E11_EcO <- CreateSeuratObject(counts = E11_EcO, project = "E11_EcO", min.cells = 3, min.features = 200)
+E10_EcO <- CreateSeuratObject(counts = E10_EcO, project = "E10_EcO", min.cells = 3, min.features = 200)
+
+E01_EcPA <- CreateSeuratObject(counts = E01_EcPA, project = "E01_EcPA", min.cells = 3, min.features = 200)
+E02_EcPA <- CreateSeuratObject(counts = E02_EcPA, project = "E02_EcPA", min.cells = 3, min.features = 200)
+E03_EcPA <- CreateSeuratObject(counts = E03_EcPA, project = "E03_EcPA", min.cells = 3, min.features = 200)
+E04_EcPA <- CreateSeuratObject(counts = E04_EcPA, project = "E04_EcPA", min.cells = 3, min.features = 200)
+E05_EcPA <- CreateSeuratObject(counts = E05_EcPA, project = "E05_EcPA", min.cells = 3, min.features = 200)
+E09_EcPA <- CreateSeuratObject(counts = E09_EcPA, project = "E09_EcPA", min.cells = 3, min.features = 200)
+E09_EcPA2 <- CreateSeuratObject(counts = E09_EcPA2, project = "E01_EcPA2", min.cells = 3, min.features = 200)
+```
+
+### QC
+
+```{r}
+Control1[["percent.mt"]] <- PercentageFeatureSet(Control1, pattern ="^MT-")
+Control2[["percent.mt"]] <- PercentageFeatureSet(Control2, pattern ="^MT-")
+Control3[["percent.mt"]] <- PercentageFeatureSet(Control3, pattern ="^MT-")
+
+E01_EuE[["percent.mt"]] <- PercentageFeatureSet(E01_EuE, pattern ="^MT-")
+E02_EuE[["percent.mt"]] <- PercentageFeatureSet(E02_EuE, pattern ="^MT-")
+E03_EuE[["percent.mt"]] <- PercentageFeatureSet(E03_EuE, pattern ="^MT-")
+E04_EuE[["percent.mt"]] <- PercentageFeatureSet(E04_EuE, pattern ="^MT-")
+E05_EuE[["percent.mt"]] <- PercentageFeatureSet(E05_EuE, pattern ="^MT-")
+E06_EuE[["percent.mt"]] <- PercentageFeatureSet(E06_EuE, pattern ="^MT-")
+E07_EuE[["percent.mt"]] <- PercentageFeatureSet(E07_EuE, pattern ="^MT-")
+E08_EuE[["percent.mt"]] <- PercentageFeatureSet(E08_EuE, pattern ="^MT-")
+E09_EuE[["percent.mt"]] <- PercentageFeatureSet(E09_EuE, pattern ="^MT-")
+
+E01_EcP[["percent.mt"]] <- PercentageFeatureSet(E01_EcP, pattern ="^MT-")
+E02_EcP[["percent.mt"]] <- PercentageFeatureSet(E02_EcP, pattern ="^MT-")
+E03_EcP[["percent.mt"]] <- PercentageFeatureSet(E03_EcP, pattern ="^MT-")
+E04_EcP[["percent.mt"]] <- PercentageFeatureSet(E04_EcP, pattern ="^MT-")
+E05_EcP[["percent.mt"]] <- PercentageFeatureSet(E05_EcP, pattern ="^MT-")
+E06_EcP[["percent.mt"]] <- PercentageFeatureSet(E06_EcP, pattern ="^MT-")
+E07_EcP[["percent.mt"]] <- PercentageFeatureSet(E07_EcP, pattern ="^MT-")
+E09_EcP[["percent.mt"]] <- PercentageFeatureSet(E09_EcP, pattern ="^MT-")
+
+E07_EcO[["percent.mt"]] <- PercentageFeatureSet(E07_EcO, pattern ="^MT-")
+E09_EcO[["percent.mt"]] <- PercentageFeatureSet(E09_EcO, pattern ="^MT-")
+E11_EcO[["percent.mt"]] <- PercentageFeatureSet(E11_EcO, pattern ="^MT-")
+E10_EcO[["percent.mt"]] <- PercentageFeatureSet(E10_EcO, pattern ="^MT-")
+
+E01_EcPA[["percent.mt"]] <- PercentageFeatureSet(E01_EcPA, pattern ="^MT-")
+E02_EcPA[["percent.mt"]] <- PercentageFeatureSet(E02_EcPA, pattern ="^MT-")
+E03_EcPA[["percent.mt"]] <- PercentageFeatureSet(E03_EcPA, pattern ="^MT-")
+E04_EcPA[["percent.mt"]] <- PercentageFeatureSet(E04_EcPA, pattern ="^MT-")
+E05_EcPA[["percent.mt"]] <- PercentageFeatureSet(E05_EcPA, pattern ="^MT-")
+E09_EcPA[["percent.mt"]] <- PercentageFeatureSet(E09_EcPA, pattern ="^MT-")
+E09_EcPA2[["percent.mt"]] <- PercentageFeatureSet(E09_EcPA2, pattern ="^MT-")
+```
+
+### QC Visualizations
+
+```{r}
+plot1 <- FeatureScatter(Control1, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(Control1, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/Control1_qc.pdf")
+
+plot1 <- FeatureScatter(Control2, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(Control2, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/Control2_qc.pdf")
+
+plot1 <- FeatureScatter(Control3, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(Control3, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/Control3_qc.pdf")
+
+plot1 <- FeatureScatter(E01_EuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E01_EuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E01_EuE_qc.pdf")
+
+plot1 <- FeatureScatter(E02_EuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E02_EuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E02_EuE_qc.pdf")
+
+plot1 <- FeatureScatter(E03_EuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E03_EuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E03_EuE_qc.pdf")
+
+plot1 <- FeatureScatter(E04_EuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E04_EuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E04_EuE_qc.pdf")
+
+plot1 <- FeatureScatter(E05_EuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E05_EuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E05_EuE_qc.pdf")
+
+plot1 <- FeatureScatter(E06_EuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E06_EuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E06_EuE_qc.pdf")
+
+plot1 <- FeatureScatter(E07_EuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E07_EuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E07_EuE_qc.pdf")
+
+plot1 <- FeatureScatter(E08_EuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E08_EuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E08_EuE_qc.pdf")
+
+plot1 <- FeatureScatter(E09_EuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E09_EuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E09_EuE_qc.pdf")
+
+plot1 <- FeatureScatter(E01_EcP, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E01_EcP, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E01_EcP_qc.pdf")
+
+plot1 <- FeatureScatter(E02_EcP, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E02_EcP, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E02_EcP_qc.pdf")
+
+plot1 <- FeatureScatter(E03_EcP, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E03_EcP, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E03_EcP_qc.pdf")
+
+plot1 <- FeatureScatter(E04_EcP, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E04_EcP, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E04_EcP_qc.pdf")
+
+plot1 <- FeatureScatter(E05_EcP, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E05_EcP, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E05_EcP_qc.pdf")
+
+plot1 <- FeatureScatter(E06_EcP, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E06_EcP, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E06_EcP_qc.pdf")
+
+plot1 <- FeatureScatter(E07_EcP, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E07_EcP, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E07_EcP_qc.pdf")
+
+plot1 <- FeatureScatter(E09_EcP, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E09_EcP, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E09_EcP_qc.pdf")
+
+plot1 <- FeatureScatter(E07_EcO, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E07_EcO, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E07_EcO_qc.pdf")
+
+plot1 <- FeatureScatter(E09_EcO, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E09_EcO, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E09_EcO_qc.pdf")
+
+plot1 <- FeatureScatter(E10_EcO, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E10_EcO, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E10_EcO_qc.pdf")
+
+plot1 <- FeatureScatter(E11_EcO, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E11_EcO, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E11_Ec0_qc.pdf")
+
+plot1 <- FeatureScatter(E01_EcPA, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E01_EcPA, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E01_EcPA_qc.pdf")
+
+plot1 <- FeatureScatter(E02_EcPA, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E02_EcPA, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E02_EcPA_qc.pdf")
+
+plot1 <- FeatureScatter(E03_EcPA, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E03_EcPA, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E03_EcPA_qc.pdf")
+
+plot1 <- FeatureScatter(E04_EcPA, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E04_EcPA, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E04_EcPA_qc.pdf")
+
+plot1 <- FeatureScatter(E05_EcPA, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E05_EcPA, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E05_EcPA_qc.pdf")
+
+plot1 <- FeatureScatter(E09_EcPA, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E09_EcPA, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E09_EcPA_qc.pdf")
+
+plot1 <- FeatureScatter(E09_EcPA2, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(E09_EcPA2, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/Visualizations/QC/E09_EcPA2_qc.pdf")
+
+```
+
+### Subset Samples
+
+```{r}
+Control1 <- subset(Control1, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+Control2 <- subset(Control2, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+Control3 <- subset(Control3, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E01_EuE <- subset(E01_EuE, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E02_EuE <- subset(E02_EuE, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E03_EuE <- subset(E03_EuE, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E04_EuE <- subset(E04_EuE, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E05_EuE <- subset(E05_EuE, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E06_EuE <- subset(E06_EuE, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E07_EuE <- subset(E07_EuE, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E08_EuE <- subset(E08_EuE, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E09_EuE <- subset(E09_EuE, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E01_EcP <- subset(E01_EcP, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E02_EcP <- subset(E02_EcP, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E03_EcP <- subset(E03_EcP, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E04_EcP <- subset(E04_EcP, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E05_EcP <- subset(E05_EcP, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E06_EcP <- subset(E06_EcP, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E07_EcP <- subset(E07_EcP, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E09_EcP <- subset(E09_EcP, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+
+E07_EcO <- subset(E07_EcO, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E09_EcO <- subset(E09_EcO, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E10_EcO <- subset(E10_EcO, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E11_EcO <- subset(E11_EcO, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+
+E01_EcPA <- subset(E01_EcPA, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E02_EcPA <- subset(E02_EcPA, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E03_EcPA <- subset(E03_EcPA, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E04_EcPA <- subset(E04_EcPA, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E05_EcPA <- subset(E05_EcPA, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E09_EcPA <- subset(E09_EcPA, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+
+E09_EcPA2 <- subset(E09_EcPA2, subset = nFeature_RNA > 250 & nFeature_RNA < 10000 &   
+                          nCount_RNA > 1000 & nCount_RNA < 100000 & percent.mt < 10)
+```
+
+### Merge Things
+EcO=endometrioma
+```{r}
+GSE179640_EcPA <- merge(E01_EcPA, y=c(E02_EcPA, E03_EcPA, E04_EcPA, E05_EcPA, E09_EcPA, E09_EcPA2), add.cell.ids=c("E01_EcPA", "E02_EcPA", "E03_EcPA", "E04_EcPA", "E05_EcPA","E09_EcPA", "E09_EcPA2"))
+
+GSE179640_EcO <- merge(E07_EcO, y=c(E09_EcO, E10_EcO, E11_EcO), add.cell.ids=c("E07_EcO", "E09_EcO", "E10_EcO", "E11_EcO"))
+
+GSE179640_EcE <- merge(E01_EcP, y=c(E02_EcP, E03_EcP, E04_EcP, E05_EcP, E06_EcP, E07_EcP, E09_EcP), add.cell.ids=c("E01_EcP", "E02_EcP", "E03_EcP", "E04_EcP", "E05_EcP", "E06_EcP", "E07_EcP", "E09_EcP"))
+
+GSE179640_DEuE <- merge(E01_EuE, y=c(E02_EuE, E03_EuE, E04_EuE, E05_EuE, E06_EuE, E07_EuE, E08_EuE, E09_EuE), add.cell.ids=c("E01_EuE", "E02_EuE", "E03_EuE", "E04_EuE", "E05_EuE", "E06_EuE", "E07_EuE", "E08_EuE", "E09_EuE"))
+
+GSE179640_CEuE <- merge(Control1, y=c(Control2, Control3), add.cell.ids = c("Control1","Control2", "Control3"))
+```
+
+##Normalize Data
+```{r}
+GSE179640_EcPA <- NormalizeData(GSE179640_EcPA)
+GSE179640_EcPA <- FindVariableFeatures(GSE179640_EcPA)
+
+#GSE179640_EcO <- NormalizeData(GSE179640_EcO)
+#GSE179640_EcO <- FindVariableFeatures(GSE179640_EcO)
+
+#GSE179640_EcE <- NormalizeData(GSE179640_EcE)
+#GSE179640_EcE <- FindVariableFeatures(GSE179640_EcE)
+
+#GSE179640_DEuE <- NormalizeData(GSE179640_DEuE)
+#GSE179640_DEuE <- FindVariableFeatures(GSE179640_DEuE)
+
+#GSE179640_CEuE <- NormalizeData(GSE179640_CEuE)
+#GSE179640_CEuE <- FindVariableFeatures(GSE179640_CEuE)
+```
+
+### Save object
+```{r}
+SaveSeuratRds(GSE179640_EcPA, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_EcPA.rds")
+EcPA <- readRDS(file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_EcPA.rds")
+SaveSeuratRds(GSE179640_EcO, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_EcO.rds")
+EcO <- readRDS(file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_EcO.rds")
+SaveSeuratRds(GSE179640_EcE, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_EcE.rds")
+EcE <- readRDS(file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_EcE.rds")
+SaveSeuratRds(GSE179640_DEuE, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_DEuE.rds")
+DEuE <- readRDS(file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_DEuE.rds")
+SaveSeuratRds(GSE179640_CEuE, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_CEuE.rds")
+CEuE <- readRDS(file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE179640_CEuE.rds")
+```
+
+Control1 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(Control1, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+Control2 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(Control2, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+Control3 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(Control3, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E01_EuE 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E01_EuE, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E02_EuE 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E02_EuE, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E03_EuE 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E03_EuE, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E04_EuE 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E04_EuE, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E05_EuE 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E05_EuE, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E06_EuE 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E06_EuE, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E07_EuE 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E07_EuE, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E08_EuE 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E08_EuE, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E09_EuE 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E09_EuE, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E06_EcP 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E06_EcP, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E07_EcP 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E07_EcP, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E01_EcP 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E01_EcP, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E02_EcP 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E02_EcP, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E03_EcP 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E03_EcP, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E04_EcP 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E04_EcP, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E05_EcP 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E05_EcP, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E09_EcP 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E09_EcP, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E07_EcO 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E07_EcO, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E09_EcO 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E09_EcO, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E11_EcO 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E11_EcO, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E10_EcO 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E10_EcO, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E01_EcPA 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E01_EcPA, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E02_EcPA 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E02_EcPA, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E03_EcPA 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E03_EcPA, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E04_EcPA 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E04_EcPA, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E05_EcPA 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E05_EcPA, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E09_EcPA 
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E09_EcPA, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+E09_EcPA2
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(E09_EcPA2, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```

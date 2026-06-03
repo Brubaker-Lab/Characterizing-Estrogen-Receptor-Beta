@@ -1,0 +1,361 @@
+---
+title: "GSE111976"
+output: html_document
+---
+
+## GSE111976
+
+```{r}
+library(Seurat)
+library(ggplot2)
+```
+
+```{r}
+GSE111976_CEuE <- readRDS("~/Downloads/Alpha_Beta_Paper/GSE111976_RAW/GSE111976_ct_endo_10x.rds")
+
+GSE111976_CEuE <- CreateSeuratObject(counts = GSE111976_CEuE, project = "GSE111976", min.cells = 3, min.features = 200)
+```
+
+### QC
+
+```{r}
+GSE111976_CEuE[["percent.mt"]] <- PercentageFeatureSet(GSE111976_CEuE, pattern ="^MT-")
+```
+
+### QC Visualizations
+
+```{r}
+plot1 <- FeatureScatter(GSE111976_CEuE, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(GSE111976_CEuE, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE111976_RAW/Visualizations/QC/GSE111976_CEuE_qc.pdf")
+```
+
+### Subset Samples
+
+```{r}
+GSE111976_CEuE <- subset(GSE111976_CEuE, subset = nFeature_RNA > 250 & nFeature_RNA < 7500 & nCount_RNA > 500 & nCount_RNA < 100000 & percent.mt < 10)
+```
+
+### Merge things
+Nothing to merge
+```{r}
+new_names <- c("sample14", "sample19", "sample20", "sample29", "sample39","sample41","sample57","sample58","sample60","sample63")
+names(new_names) <- levels(GSE111976_CEuE)
+
+GSE111976_CEuE <- RenameIdents(object = GSE111976_CEuE, new_names)
+```
+
+##Normalize Data
+```{r}
+#GSE111976_CEuE <- NormalizeData(GSE111976_CEuE)
+#GSE111976_CEuE <- FindVariableFeatures(GSE111976_CEuE)
+```
+
+### Save object
+```{r}
+SaveSeuratRds(GSE111976_CEuE, file = "~/Downloads/Alpha_Beta_Paper/GSE111976_RAW/QC_normalized_GSE111976_CEuE.rds")
+
+GSE <- readRDS(file = "~/Downloads/Alpha_Beta_Paper/GSE111976_RAW/QC_normalized_GSE111976_CEuE.rds")
+```
+
+```{r}
+# Extract the cell names
+cell_names <- colnames(GSE)
+
+# Extract the part before the underscore (the patient number)
+patient_number <- sub("_.*", "", cell_names)
+
+# Add to metadata
+GSE$patient_number <- patient_number
+
+# This will create a list of Seurat objects, one per patient
+GSE_by_patient <- SplitObject(GSE, split.by = "patient_number")
+
+# Loop through the list and assign each to a new object in your environment
+for (patient in names(GSE_by_patient)) {
+  assign(paste0("seurat_patient_", patient), GSE_by_patient[[patient]])
+}
+
+```
+
+#Sample 14
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_14, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+#Sample 19
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_19, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+#Sample 20
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_20, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+#Sample 29
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_29, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+#Sample 39
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_39, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+#Sample 41
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_41, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+#Sample 57
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_57, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+#Sample 58
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_58, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+#Sample 60
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_60, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+#Sample 63
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(seurat_patient_63, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```

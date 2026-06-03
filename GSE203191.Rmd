@@ -1,0 +1,958 @@
+---
+title: "GSE203191"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(Seurat)
+library(ggplot2)
+library(hdf5r)
+
+```
+
+```{r}
+# Load your metadata file
+MEtissue1 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161374_MEtissue1_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "MEtissue1", ]
+
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_MEtissue1 <- intersect(colnames(MEtissue1), rownames(metadata))
+
+MEtissue1 <- MEtissue1[, common_barcodes_MEtissue1]
+metadata_filtered <- metadata[common_barcodes_MEtissue1, ]
+
+all(colnames(MEtissue1) == rownames(metadata_filtered))  # Should be TRUE
+
+MEtissue1 <- CreateSeuratObject(counts = MEtissue1, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+
+
+MEtissue2 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161375_MEtissue2_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "MEtissue2", ]
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_MEtissue2 <- intersect(colnames(MEtissue2), rownames(metadata))
+
+MEtissue2 <- MEtissue2[, common_barcodes_MEtissue2]
+metadata_filtered <- metadata[common_barcodes_MEtissue2, ]
+
+all(colnames(MEtissue2) == rownames(metadata_filtered))  # Should be TRUE
+
+MEtissue2 <- CreateSeuratObject(counts = MEtissue2, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+
+MEtissue3 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161376_MEtissue3_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "MEtissue3", ]
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_MEtissue3 <- intersect(colnames(MEtissue3), rownames(metadata))
+
+MEtissue3 <- MEtissue3[, common_barcodes_MEtissue3]
+metadata_filtered <- metadata[common_barcodes_MEtissue3, ]
+
+all(colnames(MEtissue3) == rownames(metadata_filtered))  # Should be TRUE
+
+MEtissue3 <- CreateSeuratObject(counts = MEtissue3, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+
+MEtissue4 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161377_MEtissue4_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "MEtissue4", ]
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_MEtissue4 <- intersect(colnames(MEtissue4), rownames(metadata))
+
+MEtissue4 <- MEtissue4[, common_barcodes_MEtissue4]
+metadata_filtered <- metadata[common_barcodes_MEtissue4, ]
+
+all(colnames(MEtissue4) == rownames(metadata_filtered))  # Should be TRUE
+
+MEtissue4 <- CreateSeuratObject(counts = MEtissue4, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+
+MEtissue5 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161378_MEtissue5_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "MEtissue5", ]
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_MEtissue5 <- intersect(colnames(MEtissue5), rownames(metadata))
+
+MEtissue5 <- MEtissue5[, common_barcodes_MEtissue5]
+metadata_filtered <- metadata[common_barcodes_MEtissue5, ]
+
+all(colnames(MEtissue5) == rownames(metadata_filtered))  # Should be TRUE
+
+MEtissue5 <- CreateSeuratObject(counts = MEtissue5, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+
+MEtissue6 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161379_MEtissue6_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "MEtissue6", ]
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_MEtissue6 <- intersect(colnames(MEtissue6), rownames(metadata))
+
+MEtissue6 <- MEtissue6[, common_barcodes_MEtissue6]
+metadata_filtered <- metadata[common_barcodes_MEtissue6, ]
+
+all(colnames(MEtissue6) == rownames(metadata_filtered))  # Should be TRUE
+
+MEtissue6 <- CreateSeuratObject(counts = MEtissue6, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+
+MEtissue7 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161380_MEtissue7_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "MEtissue7", ]
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_MEtissue7 <- intersect(colnames(MEtissue7), rownames(metadata))
+
+MEtissue7 <- MEtissue7[, common_barcodes_MEtissue7]
+metadata_filtered <- metadata[common_barcodes_MEtissue7, ]
+
+all(colnames(MEtissue7) == rownames(metadata_filtered))  # Should be TRUE
+
+MEtissue7 <- CreateSeuratObject(counts = MEtissue7, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+
+wholeME1 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161383_wholeME1_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "wholeME1", ]
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_wholeME1 <- intersect(colnames(wholeME1), rownames(metadata))
+
+wholeME1 <- wholeME1[, common_barcodes_wholeME1]
+metadata_filtered <- metadata[common_barcodes_wholeME1, ]
+
+all(colnames(wholeME1) == rownames(metadata_filtered))  # Should be TRUE
+
+wholeME1 <- CreateSeuratObject(counts = wholeME1, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+
+wholeME2 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161381_wholeME2_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "wholeME2", ]
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_wholeME2 <- intersect(colnames(wholeME2), rownames(metadata))
+
+wholeME2 <- wholeME2[, common_barcodes_wholeME2]
+metadata_filtered <- metadata[common_barcodes_wholeME2, ]
+
+all(colnames(wholeME2) == rownames(metadata_filtered))  # Should be TRUE
+
+wholeME2 <- CreateSeuratObject(counts = wholeME2, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+
+wholeME3 <- Read10X_h5("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/GSM6161382_wholeME3_filtered_feature_bc_matrix.h5")
+
+metadata <- read.delim("~/Downloads/GSE203191_Shih_endo_meta_frame.tsv") 
+samples <- read.csv("~/Downloads/GSE203191_metadata_simple.csv")
+metadata <- metadata %>%
+  left_join(samples, by = "subjectID")
+metadata <- metadata[metadata$run == "wholeME3", ]
+metadata <- metadata[!duplicated(metadata$barcode), ]
+
+rownames(metadata) <- metadata$barcode
+
+common_barcodes_wholeME3 <- intersect(colnames(wholeME3), rownames(metadata))
+
+wholeME3 <- wholeME3[, common_barcodes_wholeME3]
+metadata_filtered <- metadata[common_barcodes_wholeME3, ]
+
+all(colnames(wholeME3) == rownames(metadata_filtered))  # Should be TRUE
+
+wholeME3 <- CreateSeuratObject(counts = wholeME3, meta.data = metadata_filtered, min.cells = 3, min.features = 200)
+```
+
+```{r}
+MEtissue1[["percent.mt"]] <- PercentageFeatureSet(MEtissue1, pattern ="^MT-")
+MEtissue2[["percent.mt"]] <- PercentageFeatureSet(MEtissue2, pattern ="^MT-")
+MEtissue3[["percent.mt"]] <- PercentageFeatureSet(MEtissue3, pattern ="^MT-")
+MEtissue4[["percent.mt"]] <- PercentageFeatureSet(MEtissue4, pattern ="^MT-")
+MEtissue5[["percent.mt"]] <- PercentageFeatureSet(MEtissue5, pattern ="^MT-")
+MEtissue6[["percent.mt"]] <- PercentageFeatureSet(MEtissue6, pattern ="^MT-")
+MEtissue7[["percent.mt"]] <- PercentageFeatureSet(MEtissue7, pattern ="^MT-")
+
+wholeME1[["percent.mt"]] <- PercentageFeatureSet(wholeME1, pattern ="^MT-")
+wholeME2[["percent.mt"]] <- PercentageFeatureSet(wholeME2, pattern ="^MT-")
+wholeME3[["percent.mt"]] <- PercentageFeatureSet(wholeME3, pattern ="^MT-")
+```
+
+### QC Visualizations
+
+```{r}
+plot1 <- FeatureScatter(MEtissue1, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(MEtissue1, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/MEtissue1_qc.pdf")
+
+plot1 <- FeatureScatter(MEtissue2, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(MEtissue2, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/MEtissue2_qc.pdf")
+
+plot1 <- FeatureScatter(MEtissue3, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(MEtissue3, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/MEtissue3_qc.pdf")
+
+plot1 <- FeatureScatter(MEtissue4, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(MEtissue4, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/MEtissue4_qc.pdf")
+
+plot1 <- FeatureScatter(MEtissue5, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(MEtissue5, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/MEtissue5_qc.pdf")
+
+plot1 <- FeatureScatter(MEtissue6, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(MEtissue6, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/MEtissue6_qc.pdf")
+
+plot1 <- FeatureScatter(MEtissue7, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(MEtissue7, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/MEtissue7_qc.pdf")
+
+plot1 <- FeatureScatter(wholeME1, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(wholeME1, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/wholeME1_qc.pdf")
+
+plot1 <- FeatureScatter(wholeME2, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(wholeME2, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/wholeME2_qc.pdf")
+
+plot1 <- FeatureScatter(wholeME3, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(wholeME3, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+ggsave("~/Downloads/Alpha_Beta_Paper/GSE203191_RAW/Visualizations/QC/wholeME3_qc.pdf")
+```
+
+### Subset Samples
+
+```{r}
+MEtissue1 <- subset(MEtissue1, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+
+MEtissue2 <- subset(MEtissue2, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+
+MEtissue3 <- subset(MEtissue3, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+
+MEtissue4 <- subset(MEtissue4, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+
+MEtissue5 <- subset(MEtissue5, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+
+MEtissue6 <- subset(MEtissue6, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+
+MEtissue7 <- subset(MEtissue7, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+
+wholeME1 <- subset(wholeME1, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+
+wholeME2 <- subset(wholeME2, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+
+wholeME3 <- subset(wholeME3, subset = nFeature_RNA > 250 & nFeature_RNA < 6000 & nCount_RNA > 500 & nCount_RNA < 50000 & percent.mt < 10)
+```
+
+## Set Identities
+```{r}
+Idents(MEtissue1) <- "run"  
+Idents(MEtissue2) <- "run" 
+Idents(MEtissue3) <- "run" 
+Idents(MEtissue4) <- "run" 
+Idents(MEtissue5) <- "run" 
+Idents(MEtissue6) <- "run" 
+Idents(MEtissue7) <- "run" 
+Idents(wholeME1) <- "run" 
+Idents(wholeME2) <- "run" 
+Idents(wholeME3) <- "run" 
+```
+
+### Merge objects
+```{r}
+GSE203191_MET <- merge(MEtissue1, y=c(MEtissue2, MEtissue3, MEtissue4, MEtissue5, MEtissue6, MEtissue7), add.cell.ids = c("MEtissue1","MEtissue2","MEtissue3","MEtissue4","MEtissue5","MEtissue6","MEtissue7"))
+
+GSE203191_WME <- merge(wholeME1, y=c(wholeME2, wholeME3), add.cell.ids = c("wholeME1","wholeME2","wholeME3"))
+
+split_MET <- SplitObject(GSE203191_MET, split.by = "pheno")
+CMET <- split_MET[["Control"]]  
+DMET <- split_MET[["Diagnosed"]]  
+SMET <- split_MET[["Symptomatic"]]  
+
+split_WME <- SplitObject(GSE203191_WME, split.by = "pheno")
+CWME <- split_WME[["Control"]]  
+DWME <- split_WME[["Diagnosed"]]  
+SWME <- split_WME[["Symptomatic"]]  
+
+split_MET_patient <- SplitObject(GSE203191_MET, split.by = "library.name")
+split_WME_patient <- SplitObject(GSE203191_WME, split.by = "library.name")
+```
+
+##Normalize Data
+```{r}
+CMET@meta.data[["orig.ident"]] <- CMET@meta.data[["library.name"]]
+CMET <- NormalizeData(CMET)
+CMET <- FindVariableFeatures(CMET)
+
+DMET@meta.data[["orig.ident"]] <- DMET@meta.data[["library.name"]]
+DMET <- NormalizeData(DMET)
+DMET <- FindVariableFeatures(DMET)
+
+SMET <- NormalizeData(SMET)
+SMET <- FindVariableFeatures(SMET)
+
+CWME@meta.data[["orig.ident"]] <- CWME@meta.data[["library.name"]]
+CWME <- NormalizeData(CWME)
+CWME <- FindVariableFeatures(CWME)
+
+DWME@meta.data[["orig.ident"]] <- DWME@meta.data[["library.name"]]
+DWME <- NormalizeData(DWME)
+DWME <- FindVariableFeatures(DWME)
+
+SWME <- NormalizeData(SWME)
+SWME <- FindVariableFeatures(SWME)
+```
+
+### Save object
+```{r}
+SaveSeuratRds(CMET, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE203191_CMET.rds")
+SaveSeuratRds(DMET, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE203191_DMET.rds")
+SaveSeuratRds(SMET, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE203191_SMET.rds")
+
+
+SaveSeuratRds(CWME, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE203191_CWME.rds")
+SaveSeuratRds(DWME, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE203191_DWME.rds")
+SaveSeuratRds(SWME, file = "~/Downloads/Alpha_Beta_Paper/GSE179640_RAW/QC_normalized_GSE203191_SWME.rds")
+```
+
+```{r}
+tissue_1 <- SplitObject(MEtissue1, split.by = "library.name")
+for (patient in names(tissue_1)) {
+  assign(paste0("GSE_", patient), tissue_1[[patient]])
+}
+
+tissue_2 <- SplitObject(DMET, split.by = "library.name")
+for (patient in names(tissue_2)) {
+  assign(paste0("GSE_", patient), tissue_2[[patient]])
+}
+tissue_3 <- SplitObject(CWME, split.by = "library.name")
+for (patient in names(tissue_3)) {
+  assign(paste0("GSE_", patient), tissue_3[[patient]])
+}
+tissue_4 <- SplitObject(DWME, split.by = "library.name")
+for (patient in names(tissue_4)) {
+  assign(paste0("GSE_", patient), tissue_4[[patient]])
+}
+tissue_5 <- SplitObject(MEtissue5, split.by = "library.name")
+for (patient in names(tissue_5)) {
+  assign(paste0("GSE_", patient), tissue_5[[patient]])
+}
+tissue_6 <- SplitObject(MEtissue6, split.by = "library.name")
+for (patient in names(tissue_6)) {
+  assign(paste0("GSE_", patient), tissue_6[[patient]])
+}
+tissue_7 <- SplitObject(MEtissue7, split.by = "library.name")
+for (patient in names(tissue_7)) {
+  assign(paste0("GSE_", patient), tissue_7[[patient]])
+}
+
+whole_1 <- SplitObject(wholeME1, split.by = "library.name")
+for (patient in names(whole_1)) {
+  assign(paste0("GSE_", patient), whole_1[[patient]])
+}
+whole_2 <- SplitObject(wholeME2, split.by = "library.name")
+for (patient in names(whole_2)) {
+  assign(paste0("GSE_", patient), whole_2[[patient]])
+}
+whole_3 <- SplitObject(wholeME3, split.by = "library.name")
+for (patient in names(whole_3)) {
+  assign(paste0("GSE_", patient), whole_3[[patient]])
+}
+```
+
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(CPF, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 10
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 10`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 12
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 12`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 13
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 13`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 14
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 14`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 16
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 16`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 17
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 17`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 18
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 18`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 19
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 19`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 20
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 20`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 23
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 23`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 24
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 24`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 25
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 25`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 26
+```{r}
+`GSE_sample 26` <- JoinLayers(`GSE_Sample 26`, assay = "RNA")
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_sample 26`, assay = "RNA", layer = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 29
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 29`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 32
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 32`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 4
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 4`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 7
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 7`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
+
+GSE_Sample 8
+```{r}
+# Get the expression matrix (log-normalized data)
+expr_data <- GetAssayData(`GSE_Sample 8`, slot = "counts")
+
+
+# Check which cells express ESR1 and/or ESR2
+esr1_expr <- expr_data["ESR1", ] > 0
+esr2_expr <- expr_data["ESR2", ] > 0
+
+# Boolean logic to define each group
+both     <- esr1_expr & esr2_expr
+esr1_only <- esr1_expr & !esr2_expr
+esr2_only <- !esr1_expr & esr2_expr
+neither  <- !esr1_expr & !esr2_expr
+
+# Count cells in each group
+counts <- list(
+  ESR1_only = sum(esr1_only),
+  ESR2_only = sum(esr2_only),
+  Both      = sum(both),
+  Neither   = sum(neither)
+)
+
+print(counts)
+
+```
